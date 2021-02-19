@@ -61,9 +61,16 @@ $myReportPath		= $myScriptPath + "\Reporting"
 
 # Load Configuration 
 
-$MyLoadConf = $myFunctionPath +"\"+ "Get_LoadConfig.ps1"
-	. $MyLoadConf
+$myLoadConf = $myFunctionPath +"\"+ "Get_LoadConfig.ps1"
+	. $myLoadConf
 	Get_LoadConfig -path $myConfPath
+
+
+# Convert Query
+$convQuery  = $myFunctionPath +"\"+ "convertQuery.ps1"
+	. $convQuery
+
+
 
 
 #######################################################
@@ -89,15 +96,15 @@ $reportName = $appsettings["reportName"]
 #########################################################
 
 # Query get client and scanner server
-$qcas   = $mySqlQuery + "query_get_clients _and scanners.sql"
+$qcas   = $mySqlQuery + "query_get_clients_and scanners.sql"
 $qcue   = $mySqlQuery + "query_count_users_enable.sql"
 $qcde   = $mySqlQuery + "query_count_desktop.sql"
 $qclp   = $mySqlQuery + "query_count_laptop.sql"
 $qctc   = $mySqlQuery + "query_count_thinclient.sql"
 $qctbl  = $mySqlQuery + "query_count_tablet.sql"
 $qcprt  = $mySqlQuery + "query_count_printer.sql"
-$qlmso  = $mySqlQuery + "query_count_msoffice.sql"
-$qlkasc = $mySqlQuery + "query_count_kas_client.sql"
+$qcmso  = $mySqlQuery + "query_count_msoffice.sql"
+$qckasc = $mySqlQuery + "query_count_kas_client.sql"
 
 # Reporting Name
 $reportName = $reportName +"_"+ $todayDate +".csv"
@@ -110,6 +117,7 @@ $reportPath = $myReportPath +"\"+ $reportName
 
 ## Del report for code
 Remove-Item $reportPath
+
 ## Debug
 if ($debug -eq '1') { write-host "Start Script" }
 
@@ -129,51 +137,36 @@ foreach ( $qr in $qcasResult) {
 	$clientScan	= $qr.item(1)
 
 	## Query for count how many user enable by scanner.
-	$qcueModified = (Get-content $qcue) -replace 'scannerToChange',$clientScan | Out-String
-	$qcueResult = Invoke-Sqlcmd -ServerInstance $sqlServer -Database $sqlDB -Query $qcueModified -Username $sqlUser -Password $sqlPassword 
-	$clientUsersEnable = $qcueResult.ITEM(0)
+	$countUsersEnable = convertQuery -ServerInstance $sqlServer -Database $sqlDB -Query $qcue -Username $sqlUser -Password $sqlPassword
 
 	## Query for count Desktop 
-	$qcdeModified = (Get-content $qcde) -replace 'scannerToChange',$clientScan | Out-String
-	$qcueResult = Invoke-Sqlcmd -ServerInstance $sqlServer -Database $sqlDB -Query $qcdeModified -Username $sqlUser -Password $sqlPassword 
-	$clientCountDesktop = $qcueResult.ITEM(0)
+	$countDesktop = convertQuery -ServerInstance $sqlServer -Database $sqlDB -Query $qcde -Username $sqlUser -Password $sqlPassword
 
 	## Query for count Laptop 
-	$qclpModified = (Get-content $qclp) -replace 'scannerToChange',$clientScan | Out-String
-	$qclpResult = Invoke-Sqlcmd -ServerInstance $sqlServer -Database $sqlDB -Query $qclpModified -Username $sqlUser -Password $sqlPassword 
-	$clientCountLaptop = $qclpResult.ITEM(0)
+	$countLaptop = convertQuery -ServerInstance $sqlServer -Database $sqlDB -Query $qclp -Username $sqlUser -Password $sqlPassword
 
 	## Query for count ThinClient
-	$qctcModified = (Get-content $qctc) -replace 'scannerToChange',$clientScan | Out-String
-	$qctcResult = Invoke-Sqlcmd -ServerInstance $sqlServer -Database $sqlDB -Query $qctcModified -Username $sqlUser -Password $sqlPassword 
-	$clientCountThinClient = $qctcResult.ITEM(0)
+	$countThinClient = convertQuery -ServerInstance $sqlServer -Database $sqlDB -Query $qctc -Username $sqlUser -Password $sqlPassword
 
 	## Query for count Tablet
-	$qctblModified = (Get-content $qctbl) -replace 'scannerToChange',$clientScan | Out-String
-	$qctblResult = Invoke-Sqlcmd -ServerInstance $sqlServer -Database $sqlDB -Query $qctblModified -Username $sqlUser -Password $sqlPassword 
-	$clientCountTablet = $qctblResult.ITEM(0)
+	$countTablet = convertQuery -ServerInstance $sqlServer -Database $sqlDB -Query $qctbl -Username $sqlUser -Password $sqlPassword
 
 	## Query for count Printer
-	$qcprtModified = (Get-content $qcprt) -replace 'scannerToChange',$clientScan | Out-String
-	$qcprtResult = Invoke-Sqlcmd -ServerInstance $sqlServer -Database $sqlDB -Query $qcprtModified -Username $sqlUser -Password $sqlPassword 
-	$clientCountPrinter = $qcprtResult.ITEM(0)
+	$countPrinter = convertQuery -ServerInstance $sqlServer -Database $sqlDB -Query $qcprt -Username $sqlUser -Password $sqlPassword
 
 	## Query for count MS Office STD and Pro
-	$qlmsoModified = (Get-content $qlmso) -replace 'scannerToChange',$clientScan | Out-String
-	$qlmsoResult = Invoke-Sqlcmd -ServerInstance $sqlServer -Database $sqlDB -Query $qlmsoModified -Username $sqlUser -Password $sqlPassword 
-	$licenseMSOffice = $qlmsoResult.ITEM(0)
+	$countMSOffice = convertQuery -ServerInstance $sqlServer -Database $sqlDB -Query $qcmso -Username $sqlUser -Password $sqlPassword
 
 	## Query for count Kaspersky Client Licence
-	$qlkascModified = (Get-content $qlkasc) -replace 'scannerToChange',$clientScan | Out-String
-	$qlmsoResult = Invoke-Sqlcmd -ServerInstance $sqlServer -Database $sqlDB -Query $qlkascModified -Username $sqlUser -Password $sqlPassword 
-	$licenseKasClient = $qlkascResult.ITEM(0)
+	$countKasClient = convertQuery -ServerInstance $sqlServer -Database $sqlDB -Query $qckasc -Username $sqlUser -Password $sqlPassword
+
 
 
 	
 
 
 	# Add client name and scanner to report.csv
-	"$clientName;$clientScan;$clientUsersEnable;$clientCountDesktop;$clientCountLaptop;$clientCountThinClient;$clientCountTablet;$clientCountPrinter;$licenseMSOffice;$licenseKasClient" | Out-File -FilePath $reportPath -Append
+	"$clientName;$clientScan;$countUsersEnable;$countDesktop;$countLaptop;$countThinClient;$countTablet;$countPrinter;$countMSOffice;$countKasClient" | Out-File -FilePath $reportPath -Append
 
 
 
