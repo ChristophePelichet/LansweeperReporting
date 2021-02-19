@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<configuration>
+	<appSettings>
+		<!-- GENERAL -->
+		<add Key="debug" 		Value="1"/>
+		<!-- SQL Settings-->
+		<add Key="sqlServer"	Value=""/>
+		<add Key="sqlDB"		Value=""/>
+		<add Key="sqlUser"		Value=""/>
+		<add Key="sqlPassword"  Value=""/>
+		<!-- Reporting-->
+		<add Key="reportName"	Value="Lansweeper_Reporting"/>
+    </appSettings>
+</configuration>
