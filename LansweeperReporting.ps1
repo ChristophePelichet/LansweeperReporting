@@ -95,7 +95,7 @@ $reportName = $appsettings["reportName"]
 ############### Path Concatenation ######################
 #########################################################
 
-# Query get client and scanner server
+# Query Path
 $qcas   = $mySqlQuery + "query_get_clients_and scanners.sql"
 $qcue   = $mySqlQuery + "query_count_users_enable.sql"
 $qcde   = $mySqlQuery + "query_count_desktop.sql"
