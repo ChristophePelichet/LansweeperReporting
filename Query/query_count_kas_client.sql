@@ -9,8 +9,6 @@ SELECT COUNT(*)
 			AND tblAssets.scanserver = 'scannerToChange' 
 
 
--- In this query we count only the KAS client for desktop or laptop
-
 
 -- On this query we select only Kaspersky Endpoint Security for Windows or Kaspersky Endpoint Agent
 -- If you want to show the all Kaspersky Publisher Software in your DB you can use this query directly.
