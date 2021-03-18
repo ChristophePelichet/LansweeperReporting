@@ -105,6 +105,15 @@ $qctbl  = $mySqlQuery + "query_count_tablet.sql"
 $qcprt  = $mySqlQuery + "query_count_printer.sql"
 $qcmso  = $mySqlQuery + "query_count_msoffice.sql"
 $qckasc = $mySqlQuery + "query_count_kas_client.sql"
+$qcvmwi = $mySqlQuery + "query_count_vm_windows.sql"
+$qcvmli = $mySqlQuery + "query_count_vm_linux.sql"
+$qcvmot = $mySqlQuery + "query_count_vm_others.sql"
+$qcnas	= $mySqlQuery + "query_count_nas.sql"
+$qcsan	= $mySqlQuery +	"query_count_san.sql"
+$qcdd	= $mySqlQuery +	"query_count_datadomain.sql"
+$qctape	= $mySqlQuery +	"query_count_tape.sql"
+$qcwlno	= $mySqlQuery + "query_count_windows_lic_not_oem.sql"
+$qcwlo	= $mySqlQuery + "query_count_windows_lic_oem.sql"
 
 # Reporting Name
 $reportName = $reportName +"_"+ $todayDate +".csv"
@@ -123,7 +132,7 @@ if ($debug -eq '1') { write-host "Start Script" }
 
 ## Reporting Header
 'sep=;' | Out-File -FilePath $reportPath
-'Client;Scanner;Users Enabled;Desktop;Laptop;ThinClient;Tablet;Printer;Ms Office;Kaspersky Client' | Out-File -FilePath $reportPath -Append
+'Client;Scanner;Users Enabled;Desktop;Laptop;ThinClient;Tablet;Printer;Ms Office;Kaspersky Client;VM OS Windows;VM OS Linux;VM OS Other;Nas;San;DataDomain;Tape Device;Windows Lic Not OEM;Windows Lic OEM' | Out-File -FilePath $reportPath -Append
 
 
 
@@ -160,17 +169,37 @@ foreach ( $qr in $qcasResult) {
 	## Query for count Kaspersky Client Licence
 	$countKasClient = convertQuery -ServerInstance $sqlServer -Database $sqlDB -Query $qckasc -Username $sqlUser -Password $sqlPassword
 
+	## Query for count Vm with Windows OS
+	$countVmWindows = convertQuery -ServerInstance $sqlServer -Database $sqlDB -Query $qcvmwi -Username $sqlUser -Password $sqlPassword
 
+	## Query for count VM with Linux OS
+	$countVmLinux = convertQuery -ServerInstance $sqlServer -Database $sqlDB -Query $qcvmli -Username $sqlUser -Password $sqlPassword
 
-	
+	## Query for count Vm with Other OS
+	$countVmOther = convertQuery -ServerInstance $sqlServer -Database $sqlDB -Query $qcvmot -Username $sqlUser -Password $sqlPassword
+
+	## Query for count Nas
+	$countNas = convertQuery -ServerInstance $sqlServer -Database $sqlDB -Query $qcnas -Username $sqlUser -Password $sqlPassword
+
+	## Query for count San
+	$countSan = convertQuery -ServerInstance $sqlServer -Database $sqlDB -Query $qcsan -Username $sqlUser -Password $sqlPassword
+
+	## Query for count Datadomain
+	$countDD = convertQuery -ServerInstance $sqlServer -Database $sqlDB -Query $qcdd -Username $sqlUser -Password $sqlPassword
+
+	## Query for count Datadomain
+	$countTape = convertQuery -ServerInstance $sqlServer -Database $sqlDB -Query $qctape -Username $sqlUser -Password $sqlPassword
+
+	## Query for count not OEM Windows Licence
+	$countWlno = convertQuery -ServerInstance $sqlServer -Database $sqlDB -Query $qcwlno -Username $sqlUser -Password $sqlPassword
+
+	## Query for count OEM Windows Licence
+	$countWlo = convertQuery -ServerInstance $sqlServer -Database $sqlDB -Query $qcwlo -Username $sqlUser -Password $sqlPassword
+
 
 
 	# Add client name and scanner to report.csv
-	"$clientName;$clientScan;$countUsersEnable;$countDesktop;$countLaptop;$countThinClient;$countTablet;$countPrinter;$countMSOffice;$countKasClient" | Out-File -FilePath $reportPath -Append
-
-
-
-
+	"$clientName;$clientScan;$countUsersEnable;$countDesktop;$countLaptop;$countThinClient;$countTablet;$countPrinter;$countMSOffice;$countKasClient;$countVmWindows;$countVmLinux;$countVmOther;$countNas;$countSan;$countDD;$countTape;$countWlno;$countWlo" | Out-File -FilePath $reportPath -Append
 
 }
 
