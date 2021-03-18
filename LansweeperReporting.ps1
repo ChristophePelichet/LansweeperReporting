@@ -77,7 +77,11 @@ $convQuery  = $myFunctionPath +"\"+ "convertQuery.ps1"
 ###################### Variables ######################
 #######################################################
 
-$todayDate = get-date -UFormat %d_%m_%Y
+## Date Format
+$dateFormat = $appSettings["dateFormat"]
+$todayDate	= (Get-Date -UFormat "$dateFormat")
+$todayMonth = Get-Date -UFormat %B
+
 
 ## Debug
 $debug = $appsettings["debug"]
@@ -90,6 +94,15 @@ $sqlPassword	= $appsettings["sqlPassword"]
 
 ## Reporting 
 $reportName = $appsettings["reportName"]
+
+## Email Configuration
+$emailSend = $appSettings["emailSend"]
+$emailTo   = $appSettings["emailTo"]
+$emailFrom = $appSettings["emailFrom"]
+$emailSubj = $appSettings["emailSubj"]
+$emailBody = $appSettings["emailBody"]
+$emailServ = $appSettings["emailServ"]
+$emailPort = $appSettings["emailPort"]
 
 #########################################################
 ############### Path Concatenation ######################
@@ -203,8 +216,13 @@ foreach ( $qr in $qcasResult) {
 
 }
 
+## Email reporting
+if ($emailSend -eq "1") {
+    Send-MailMessage -From $emailFrom -To $emailTo.split(';') -Subject "$emailSubj - $todayMonth" -Body "$emailBody" -Attachments $reportPath  -SmtpServer $emailServ -Port $emailPort
+}
+
 #######################################################
-#################### Ens Scripts ######################
+#################### End Scripts ######################
 #######################################################
 
 if ($debug -eq '1') { write-host "End Script" }

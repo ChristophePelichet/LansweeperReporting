@@ -1,8 +1,11 @@
 <?xml version="1.0"?>
 <configuration>
 	<appSettings>
+		<!-- Show the Readme.md in the github repository for all variables explanation (https://github.com/ChristophePelichet/LansweeperReporting/README.md) -->
 		<!-- GENERAL -->
 		<add Key="debug" 		Value="1"/>
+		<!-- Date Format -->
+        <add Key="dateFormat"      Value="%d-%m-%Y"/>
 		<!-- SQL Settings-->
 		<add Key="sqlServer"	Value=""/>
 		<add Key="sqlDB"		Value=""/>
@@ -10,5 +13,13 @@
 		<add Key="sqlPassword"  Value=""/>
 		<!-- Reporting-->
 		<add Key="reportName"	Value="Lansweeper_Reporting"/>
+		<!-- Email Configuration -->
+		<add Key="emailSend"    Value="1"/>
+        <add Key="emailTo"      Value=""/>
+        <add Key="emailFrom"    Value=""/>
+        <add Key="emailSubj"    Value="Lansweeper Reporting"/>
+        <add Key="emailBody"    Value="Lansweeper Reporting"/>
+        <add Key="emailServ"  	Value=""/>
+        <add Key="emailPort"    Value="25"/>
     </appSettings>
 </configuration>
