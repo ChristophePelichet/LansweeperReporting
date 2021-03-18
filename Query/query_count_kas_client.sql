@@ -1,3 +1,5 @@
+-- On this query we select only Kaspersky Endpoint Security for Windows or Kaspersky Endpoint Agent
+
 SELECT COUNT(*)
 	From tblSoftware 
 		Inner Join tblAssets On tblSoftware.AssetID = tblAssets.AssetID 
@@ -10,7 +12,7 @@ SELECT COUNT(*)
 
 
 
--- On this query we select only Kaspersky Endpoint Security for Windows or Kaspersky Endpoint Agent
+
 -- If you want to show the all Kaspersky Publisher Software in your DB you can use this query directly.
 
 -- SELECT	tblSoftwareUni.SoftwarePublisher,

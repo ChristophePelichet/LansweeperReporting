@@ -1,3 +1,6 @@
+-- On this query we select only specific chassis type number 8 9 10 and 31 . 
+-- Please show below the complet chassis type list.
+
 SELECT COUNT(*)
 From tblAssets
 	Inner Join tblAssetCustom On tblAssets.AssetID = tblAssetCustom.AssetID
@@ -10,9 +13,8 @@ Where tblAssetCustom.State = 1
 		AND TsysChassisTypes.Chassistype IN (8,9,10,31)
         AND tblAssets.scanserver = 'scannerToChange' 
 
--- On this query we select only specific chassis type number 8 9 10 and 31 . Please show below the complet chassis type list.
 
--- Array of chassis types. 
+-- Chassis Types. 
 		
 -- 		1 = Other 
 -- 		2 = Unknown 

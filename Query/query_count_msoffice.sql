@@ -1,3 +1,5 @@
+-- On this query we select only Ms office Standard ans Pro (All Versions)
+
 SELECT COUNT(*)
 	From tblSoftware 
 		Inner Join tblAssets On tblSoftware.AssetID = tblAssets.AssetID 
@@ -7,7 +9,6 @@ SELECT COUNT(*)
 				OR tblSoftwareUni.SoftwareName LIKE 'Microsoft Office Stand%')
 			AND tblAssets.scanserver = 'scannerToChange' 
 
--- On this query we select only Ms office Standard ans Pro (All Versions)
 -- If you want to show the all Micosoft Publisher Software in your DB you can use this query directly.
 
 -- SELECT	tblSoftwareUni.SoftwareName,
