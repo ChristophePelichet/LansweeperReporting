@@ -18,3 +18,14 @@ He entire configuration is done in the configuration file
 ### Debug Mode
 - Enable or Disable debug output
     - key="debug" value="1 Enable / 0 = Disable"
+
+### SQL appSettings
+
+- SQL server name
+    - Key="sqlserver"
+- SQL DB name
+    - Key="sqlDB"
+- SQL user name
+    - Key="sqlUser"
+- SQL password
+    - Key="sqlPassword"
