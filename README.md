@@ -16,8 +16,8 @@ He entire configuration is done in the configuration file
 ## Variables in config.xml
 
 ### Debug settings
-- Enable or Disable debug output
-    - key="debug"           # 1 Enable / 0 = Disable
+- Enable or Disable debug output ( 1 Enable / 0 = Disable )
+    - key="debug"           
 
 ### SQL settings
 - SQL server name
@@ -34,8 +34,8 @@ He entire configuration is done in the configuration file
     - Key="reportName"
 
 ### Email Settings
-- Enable or disable sending the report by email
-    - Key="emailSend"       # 1 Enable / 0 = Disable
+- Enable or disable sending the report by email ( 1 Enable / 0 = Disable )
+    - Key="emailSend"       
 - Email to
     - Key="emailTo"
 - Email from
