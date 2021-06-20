@@ -1,29 +1,46 @@
 <#
 
-Ascii
-https://www.patorjk.com/software/taag/#p=display&f=Graffiti&t=Type%20Something%20
-
-Version 1.0                                                                                                                                                                                    
+██╗      █████╗ ███╗   ██╗███████╗██╗    ██╗███████╗███████╗██████╗ ███████╗██████╗     ██████╗ ███████╗██████╗  ██████╗ ██████╗ ████████╗██╗███╗   ██╗ ██████╗ 
+██║     ██╔══██╗████╗  ██║██╔════╝██║    ██║██╔════╝██╔════╝██╔══██╗██╔════╝██╔══██╗    ██╔══██╗██╔════╝██╔══██╗██╔═══██╗██╔══██╗╚══██╔══╝██║████╗  ██║██╔════╝ 
+██║     ███████║██╔██╗ ██║███████╗██║ █╗ ██║█████╗  █████╗  ██████╔╝█████╗  ██████╔╝    ██████╔╝█████╗  ██████╔╝██║   ██║██████╔╝   ██║   ██║██╔██╗ ██║██║  ███╗
+██║     ██╔══██║██║╚██╗██║╚════██║██║███╗██║██╔══╝  ██╔══╝  ██╔═══╝ ██╔══╝  ██╔══██╗    ██╔══██╗██╔══╝  ██╔═══╝ ██║   ██║██╔══██╗   ██║   ██║██║╚██╗██║██║   ██║
+███████╗██║  ██║██║ ╚████║███████║╚███╔███╔╝███████╗███████╗██║     ███████╗██║  ██║    ██║  ██║███████╗██║     ╚██████╔╝██║  ██║   ██║   ██║██║ ╚████║╚██████╔╝
+╚══════╝╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝ ╚══╝╚══╝ ╚══════╝╚══════╝╚═╝     ╚══════╝╚═╝  ╚═╝    ╚═╝  ╚═╝╚══════╝╚═╝      ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚═╝╚═╝  ╚═══╝ ╚═════╝ 
+                                                                                                                                                                Version 1.0                                                                                                                                                                                    
 
 .SYNOPSIS 
-xxxx.ps1 - Description
+LansweeperReporting.ps1 - Scripts to create a multi-client report in .csv format based on Lansweeper software
 
 .DESCRIPTION
 
+Lansweeper is an application that gathers hardware and software information of computers and other devices on a computer network for management and compliance and audit purposes. 
+The application also encompasses a ticket based help desk system and capabilities for software updates on target devices.
+
+The problem I have encountered is that when you use Lansweeper in a service company that has to manage the IT assets of different companies it becomes complicated to maintain 
+reports without having to edit or modify them frequently.
+
+This is why I created a powershell script that was much easier to maintain at the query level. This script exported the data of my queries directly into a .csv file 
+that I could send to anyone.
 
 .INPUTS
 N/A
 
 .OUTPUTS
-N/A
+
+Report to .csv format . Store locally or send by email.
 
 .CONFIGURATION
-N/A
+
+the entire configuration is done in the configuration file 
+"MyScriptPath\Config\config.xml"
+
+Show the Readme.md in the github repository for all variables explanation (https://github.com/ChristophePelichet/LansweeperReporting/blob/master/README.md)
 
 .LINK
 N/A
 
 .EXAMPLE
+
 
 
 .NOTES
@@ -69,8 +86,6 @@ $myLoadConf = $myFunctionPath +"\"+ "Get_LoadConfig.ps1"
 # Convert Query
 $convQuery  = $myFunctionPath +"\"+ "convertQuery.ps1"
 	. $convQuery
-
-
 
 
 #######################################################
