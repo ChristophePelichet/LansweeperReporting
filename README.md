@@ -16,5 +16,5 @@ He entire configuration is done in the configuration file
 ## Variables in config.xml
 
 ### Debug Mode
-    - Enable or Disable debug output
-        - key="debug" value="1 Enable / 0 = Disable"
+- Enable or Disable debug output
+    - key="debug" value="1 Enable / 0 = Disable"
