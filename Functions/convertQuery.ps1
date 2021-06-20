@@ -36,10 +36,4 @@ $queryResult = Invoke-Sqlcmd -ServerInstance $sqlServer -Database $sqlDB -Query 
 
 return $queryResult.ITEM(0)
 
-
-
-
-
-
-
 }
