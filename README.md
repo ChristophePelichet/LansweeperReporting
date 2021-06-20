@@ -15,12 +15,11 @@ He entire configuration is done in the configuration file
 
 ## Variables in config.xml
 
-### Debug Mode
+### Debug settings
 - Enable or Disable debug output
-    - key="debug" value="1 Enable / 0 = Disable"
+    - key="debug"           # 1 Enable / 0 = Disable
 
-### SQL appSettings
-
+### SQL settings
 - SQL server name
     - Key="sqlserver"
 - SQL DB name
@@ -29,3 +28,23 @@ He entire configuration is done in the configuration file
     - Key="sqlUser"
 - SQL password
     - Key="sqlPassword"
+
+### Reporting settings
+- Report name
+    - Key="reportName"
+
+### Email Settings
+- Enable or disable sending the report by email
+    - Key="emailSend"       # 1 Enable / 0 = Disable
+- Email to
+    - Key="emailTo"
+- Email from
+    - Key="emailFrom"
+- Email subject
+    - Key="emailSubject"
+- Email body
+    - Key="emailBody"
+- Email server
+    - Key="emailServ"
+- Email port
+    - Key="emailPort"
